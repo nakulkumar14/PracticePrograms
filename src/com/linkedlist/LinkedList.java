@@ -27,6 +27,19 @@ public class LinkedList {
         }
     }
 
+    void insertAtTail(int data) {
+        if (head == null) {
+            head = new Node(data);
+        } else {
+            Node temp = head;
+            while (temp.next != null)
+                temp = temp.next;
+
+            Node newnode = new Node(data);
+            temp.next = newnode;
+        }
+    }
+
     boolean isEmpty() {
         return head == null ? true : false;
     }
@@ -38,7 +51,7 @@ public class LinkedList {
         }
         Node temp = head;
         while (temp != null) {
-            System.out.print(head.data);
+            System.out.print(temp.data + " ");
             temp = temp.next;
         }
         System.out.println();
@@ -48,6 +61,8 @@ public class LinkedList {
         LinkedList list1 = new LinkedList();
         list1.show();
         list1.insertAtHead(5);
+        list1.show();
+        list1.insertAtTail(10);
         list1.show();
     }
 }
