@@ -93,6 +93,52 @@ public class LinkedList {
         head = c;
     }
 
+    void reverseRecur() {
+        reverseRecurUtil(head);
+    }
+
+    void reverseRecurUtil(Node head) {
+        if (head == null)
+            return;
+
+        reverseRecurUtil(head.next);
+        System.out.print(head.data + " ");
+    }
+
+    void add1ToLinkedList() {
+        reverse();
+        Node temp = head;
+        int num = 1;
+        int carry = 0;
+        int sum = 0;
+        while (temp != null) {
+            sum = temp.data + num + carry;
+            carry = sum / 10;
+            temp.data = sum % 10;
+            temp = temp.next;
+            if (carry == 0)
+                break;
+            if (num == 1)
+                num = 0;
+            sum = 0;
+        }
+        reverse();
+    }
+
+    int findMiddle() {
+        if (head == null)
+            return 0;
+        Node slow = head;
+        Node fast = head;
+
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+
+        return slow.data;
+    }
+
     boolean isEmpty() {
         return head == null ? true : false;
     }
@@ -129,5 +175,17 @@ public class LinkedList {
         list1.show();
         list1.deleteFromTail();
         list1.show();
+
+        list1.insertAtTail(9);
+        list1.show();
+        System.out.println("after add : ");
+        list1.add1ToLinkedList();
+        list1.show();
+
+        System.out.println(list1.findMiddle());
+
+        System.out.println("reverse :");
+        list1.reverseRecur();
+//        list1.show();
     }
 }
