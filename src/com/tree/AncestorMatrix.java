@@ -1,5 +1,7 @@
 package com.tree;
 
+import java.util.ArrayList;
+
 /**
  * Created by nakulkumar on 4/9/16.
  */
@@ -57,23 +59,39 @@ public class AncestorMatrix {
         }
     }
 
+    int buildMatrix2(Node root,ArrayList<Integer> anc){
+        if (root==null)
+            return 0;
+        for (int i = 0; i < anc.size(); i++) {
+            a[anc.get(i)][root.data]=1;
+        }
+        anc.add(root.data);
+        int l = buildMatrix2(root.left,anc);
+        int r = buildMatrix2(root.right,anc);
+
+        anc.remove(anc.size()-1);
+        return l+r+1;
+    }
+
     public static void main(String[] args) {
         AncestorMatrix o = new AncestorMatrix();
         Node root=o.createTree();
         o.inorder(root);
         System.out.println();
-        o.buildMatrix(root);
+//        o.buildMatrix(root);
+//
+//        for(int i=0;i<6;i++){
+//            for(int j=0;j<6;j++){
+//                if(o.a[i][j]==1){
+//                    for(int k=0;k<6;k++){
+//                        if(o.a[k][i]==1)
+//                            o.a[k][j]=1;
+//                    }
+//                }
+//            }
+//        }
 
-        for(int i=0;i<6;i++){
-            for(int j=0;j<6;j++){
-                if(o.a[i][j]==1){
-                    for(int k=0;k<6;k++){
-                        if(o.a[k][i]==1)
-                            o.a[k][j]=1;
-                    }
-                }
-            }
-        }
+        o.buildMatrix2(root,new ArrayList<Integer>());
 
         System.out.println("AM : ");
         o.matrixPrint();
