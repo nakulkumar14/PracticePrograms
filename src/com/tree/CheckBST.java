@@ -49,6 +49,22 @@ public class CheckBST {
 
     }
 
+    static int index=0;
+
+    void kthLargest(Node root,int k){
+        if (root==null)
+            return;
+        kthLargest(root.right,k);
+
+        if(++index==k){
+            System.out.println("Kth largest : "+root.data);
+            return;
+        }
+
+        kthLargest(root.left,k);
+
+    }
+
     public static void main(String[] args) {
         CheckBST o = new CheckBST();
         Node root = null;
@@ -65,5 +81,7 @@ public class CheckBST {
         o.inorder(root);
         System.out.println();
         System.out.println(o.isBST(root, null));
+
+        o.kthLargest(root,1);
     }
 }
