@@ -96,5 +96,13 @@ public class CheckBST {
         o.kthLargest(root,1);
 
         System.out.println("Height : "+o.height(root));
+
+        root = null;
+        root = o.insert(root, 12);
+        root = o.insert(root, 15);
+        root = o.insert(root, 17);
+        root = o.insert(root, 19);
+        o.inorder(root);
+        System.out.println(o.isBST(root, null));
     }
 }
