@@ -17,4 +17,23 @@ public class TNode {
     public static TNode createNode(int data){
         return new TNode(data);
     }
+
+    public static TNode insertToBST(TNode root, int data){
+        if (root == null){
+            root = new TNode(data);
+        }else if (root.data > data){
+            root.left = insertToBST(root.left, data);
+        }else{
+            root.right = insertToBST(root.right, data);
+        }
+        return root;
+    }
+
+    public static void inorder(TNode root){
+        if (root!=null){
+            inorder(root.left);
+            System.out.print(root.data+" ");
+            inorder(root.right);
+        }
+    }
 }
