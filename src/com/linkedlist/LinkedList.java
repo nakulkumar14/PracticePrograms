@@ -3,16 +3,6 @@ package com.linkedlist;
 /**
  * Created by nakulkumar on 14/7/16.
  */
-class Node {
-    int data;
-    Node next;
-
-    Node(int data) {
-        this.data = data;
-        this.next = null;
-    }
-}
-
 public class LinkedList {
 
     private Node head;
@@ -139,6 +129,23 @@ public class LinkedList {
         return slow.data;
     }
 
+    int nthElementFromEnd(int n){
+        if (head == null)
+            return 0;
+        Node fast = head;
+        Node slow = head;
+        while(fast!=null && n!=0){
+            fast = fast.next;
+            n--;
+        }
+
+        while (slow!=null && fast!=null){
+            slow = slow.next;
+            fast = fast.next;
+        }
+        return slow.data;
+    }
+
     boolean isEmpty() {
         return head == null ? true : false;
     }
@@ -186,6 +193,8 @@ public class LinkedList {
 
         System.out.println("reverse :");
         list1.reverseRecur();
-//        list1.show();
+        list1.show();
+
+        System.out.println("Nth last : "+list1.nthElementFromEnd(4));;
     }
 }
