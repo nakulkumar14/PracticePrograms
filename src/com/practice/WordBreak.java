@@ -38,11 +38,42 @@ public class WordBreak {
         return false;
     }
 
+    // Work break problem using DP.
+    boolean wordBreakDP(String s) {
+        boolean wb[] = new boolean[s.length() + 1];
+
+        for (int i = 1; i <= s.length(); i++) {
+            if (wb[i] == false && set.contains(s.substring(0, i))) {
+                wb[i] = true;
+            }
+
+            if (wb[i]) {
+                if (i == s.length())
+                    return true;
+
+                for (int j = i + 1; j <= s.length(); j++) {
+                    if (wb[j] == false && set.contains(s.substring(i, Math.min(i + (j - i), s.length()))))
+                        wb[j] = true;
+
+                    if (j == s.length() && wb[j] == true)
+                        return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     public static void main(String[] args) {
         WordBreak wordBreak = new WordBreak();
+
         wordBreak.createDictionary();
+
         System.out.println(wordBreak.wordBreak("iloveicecreamandmango"));
+        System.out.println(wordBreak.wordBreakDP("iloveicecreamandmango"));
+
         System.out.println(wordBreak.wordBreak("ilovesamsungmobile"));
+        System.out.println(wordBreak.wordBreakDP("ilovesamsungmobile"));
     }
 
 }
