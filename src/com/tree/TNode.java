@@ -13,8 +13,6 @@ public class TNode {
 
     public TNode(int data) {
         this.data = data;
-        this.left = null;
-        this.right = null;
     }
 
     public static TNode createNode(int data){
@@ -40,11 +38,11 @@ public class TNode {
         }
     }
 
-    public static void preorder(TNode root) {
-        if (root != null) {
-            System.out.print(root.data + " ");
-            preorder(root.left);
-            preorder(root.right);
+    public static void preorder(TNode root){
+        if (root!=null){
+            System.out.print(root.data+" ");
+            inorder(root.left);
+            inorder(root.right);
         }
     }
 }
