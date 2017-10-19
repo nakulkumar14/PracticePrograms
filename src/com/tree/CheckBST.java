@@ -4,7 +4,7 @@ package com.tree;
  * Created by nakulkumar on 1/8/16.
  */
 public class CheckBST {
-    class Node {
+    static class Node {
         int data;
         Node left, right;
 
@@ -33,19 +33,20 @@ public class CheckBST {
         }
     }
 
-    boolean isBST(Node root, Node prev) {
+    Node p = null;
+    boolean isBST(Node root) {
         if (root == null) {
             return true;
         }
 
-        if (!isBST(root.left, prev))
+        if (!isBST(root.left))
             return false;
 
-        if (prev != null && prev.data >= root.data)
+        if (p != null && p.data >= root.data)
             return false;
 
-        prev = root;
-        return isBST(root.right, prev);
+        p = root;
+        return isBST(root.right);
 
     }
 
@@ -79,30 +80,41 @@ public class CheckBST {
     public static void main(String[] args) {
         CheckBST o = new CheckBST();
         Node root = null;
-        root = o.insert(root, 12);
-        root = o.insert(root, 15);
-        o.inorder(root);
-        System.out.println();
-        root = o.insert(root, 14);
-        root = o.insert(root, 8);
-        o.inorder(root);
-        System.out.println();
-        root = o.insert(root, 10);
-        root = o.insert(root, 5);
-        o.inorder(root);
-        System.out.println();
-        System.out.println(o.isBST(root, null));
+//        root = o.insert(root, 12);
+//        root = o.insert(root, 15);
+//        o.inorder(root);
+//        System.out.println();
+//        root = o.insert(root, 14);
+//        root = o.insert(root, 8);
+//        o.inorder(root);
+//        System.out.println();
+//        root = o.insert(root, 10);
+//        root = o.insert(root, 5);
+//        o.inorder(root);
+//        System.out.println();
+//        System.out.println(o.isBST(root, null));
+//
+//        o.kthLargest(root,1);
+//
+//        System.out.println("Height : "+o.height(root));
+//
+//        root = null;
+//        root = o.insert(root, 12);
+//        root = o.insert(root, 15);
+//        root = o.insert(root, 17);
+//        root = o.insert(root, 19);
+//        o.inorder(root);
+//        System.out.println(o.isBST(root, null));
 
-        o.kthLargest(root,1);
+        root = new Node(1);
+        root.left = new Node(2);
+        root.left.left = new Node(3);
+        root.left.right = new Node(5);
+        root.right = new Node(4);
+        root.right.left = new Node(6);
+        root.right.right = new Node(7);
 
-        System.out.println("Height : "+o.height(root));
-
-        root = null;
-        root = o.insert(root, 12);
-        root = o.insert(root, 15);
-        root = o.insert(root, 17);
-        root = o.insert(root, 19);
-        o.inorder(root);
-        System.out.println(o.isBST(root, null));
+        boolean bst = o.isBST(root);
+        System.out.println(bst);
     }
 }
