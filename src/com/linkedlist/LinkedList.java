@@ -163,6 +163,10 @@ public class LinkedList {
         System.out.println();
     }
 
+    Node getHead(){
+        return head;
+    }
+
     public static void main(String[] args) {
         LinkedList list1 = new LinkedList();
         list1.show();
