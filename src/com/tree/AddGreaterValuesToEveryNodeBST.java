@@ -3,6 +3,7 @@ package com.tree;
 /**
  * Created by nakul on 05-Mar-17.
  *  In a BST, replace value of each node with the sum of itself and everything greater than itself.
+ *  https://www.geeksforgeeks.org/add-greater-values-every-node-given-bst/
  */
 public class AddGreaterValuesToEveryNodeBST{
     class Node {
