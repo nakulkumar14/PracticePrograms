@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+// https://www.geeksforgeeks.org/nuts-bolts-problem-lock-key-problem-set-2-hashmap/
 public class NutsAndBolts {
 
     static void sort(char nuts[], char bolts[]) {
