@@ -7,6 +7,18 @@ public class LinkedList {
 
     private Node head;
 
+    LinkedList() {
+
+    }
+
+    LinkedList(LinkedList list) {
+        Node temp = list.head;
+        while (temp != null) {
+            insertAtTail(temp.data);
+            temp = temp.next;
+        }
+    }
+
     void insertAtHead(int data) {
         if (head == null) {
             head = new Node(data);
