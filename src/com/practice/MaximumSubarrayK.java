@@ -33,7 +33,7 @@ public class MaximumSubarrayK {
                 q.removeLast();
             q.addLast(i);
         }
-//        System.out.println("first : "+ q);
+        System.out.println("first : " + q);
 
         for (;i<a.length;i++){
             System.out.print(a[q.peek()]+" ");
@@ -41,15 +41,15 @@ public class MaximumSubarrayK {
             // remove elements that are not required in this window
             while(!q.isEmpty() && q.peek() <= i-k)
                 q.removeFirst();
-//            System.out.println("remove 1 : "+q);
+            System.out.println("remove 1 : " + q);
             // remove all unwanted elements from last
             while(!q.isEmpty() && a[q.peekLast()] <= a[i])
                 q.removeLast();
 
-//            System.out.println("remove 2 : "+q);
+            System.out.println("remove 2 : " + q);
             q.addLast(i);
 
-//            System.out.println("added: "+q);
+            System.out.println("added: " + q);
         }
         System.out.println(a[q.peek()]);
     }
