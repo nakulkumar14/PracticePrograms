@@ -15,28 +15,44 @@ public class PrintAllPathsInMatrix {
         System.out.println();
 
         int maxLengthOfPath = m + n - 1;
-        printMatrix(mat, m, n, 0, 0, new int[maxLengthOfPath], 0);
+        String s = "";
+        printMatrix(mat, m, n, 0, 0, new int[maxLengthOfPath], 0, s);
     }
 
-    private static void printMatrix(int[][] mat, int m, int n, int i, int j, int[] path, int idx) {
+    private static void printMatrix(int[][] mat, int m, int n, int i, int j, int[] path, int idx, String s) {
         path[idx] = mat[i][j];
+        s += "(" + i + "," + j + ")";
         if (i == m - 1) {
             for (int k = j + 1; k < n; k++) {
                 path[idx + k - j] = mat[i][k];
+                s += "(" + i + "," + k + ")";
             }
-            System.out.println(Arrays.toString(path));
+//            System.out.println( "s : " + s);
+
+            for (int l = 0; l < idx + n - j; l++) {
+                System.out.print(path[l] + " ");
+            }
+            System.out.println();
+
             return;
         }
         if (j == n - 1) {
             for (int k = i + 1; k < m; k++) {
                 path[idx + k - i] = mat[k][j];
+                s += "(" + k + "," + j + ")";
             }
 
-            System.out.println(Arrays.toString(path));
+//            System.out.println( "s : " + s);
+
+            for (int l = 0; l < idx + m - i; l++) {
+                System.out.print(path[l] + " ");
+            }
+            System.out.println();
+
             return;
         }
-        printMatrix(mat, m, n, i, j + 1, path, idx + 1);
-        printMatrix(mat, m, n, i + 1, j, path, idx + 1);
-//        printMatrix(mat, m, n, i + 1, j + 1, path, idx + 1);
+        printMatrix(mat, m, n, i, j + 1, path, idx + 1, s);
+        printMatrix(mat, m, n, i + 1, j, path, idx + 1, s);
+        printMatrix(mat, m, n, i + 1, j + 1, path, idx + 1, s);
     }
 }
