@@ -37,6 +37,29 @@ public class TrieDS {
         return temp.end;
     }
 
+    static String getLargestPrefix(String input) {
+        String result = "";
+        String largestPrefix = "";
+        int maxlen = -1;
+        TrieNode temp = trieNode;
+        for (int i = 0; i < input.length(); i++) {
+            int index = input.charAt(i) - 'a';
+            if (temp.child[index] == null) {
+                return largestPrefix;
+            } else {
+                result += input.charAt(i);
+                temp = temp.child[index];
+                if (temp.end && maxlen < result.length()) {
+                    largestPrefix = result;
+                    maxlen = largestPrefix.length();
+                }
+
+
+            }
+        }
+        return largestPrefix;
+    }
+
     public static void main(String[] args) {
         String keys[] = {"the", "a", "there", "answer", "any",
                 "by", "bye", "their"};
@@ -51,5 +74,8 @@ public class TrieDS {
         search("thaw");
         search("bye");
 
+        System.out.println(getLargestPrefix("there"));
+        System.out.println(getLargestPrefix("they"));
+        System.out.println(getLargestPrefix("answered"));
     }
 }
