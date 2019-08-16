@@ -84,6 +84,8 @@ public class UniquePathsInMatrix {
 //                    return node.value + 1;
                 }
 
+                Queue queue = new LinkedList();
+
                 if (isSafe(x, y, a) && visited[x][y] == 0) {
                     s += " (" + node.i + ", " + node.j + ")";
                     visited[x][y] = visited[node.i][node.j] + 1;

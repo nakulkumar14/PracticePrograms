@@ -4,10 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 // lru cache implementation
-public class LRUCache {
+public class LRUCache<K, V> {
 
     Queue queue;
-    Map<Integer, Node> map;
+    Map<K, Node> map;
 
     LRUCache(int capacity) {
         queue = new Queue(null, null, 0, capacity);
@@ -15,30 +15,35 @@ public class LRUCache {
     }
 
     public static void main(String[] args) {
-        LRUCache o = new LRUCache(2);
-        o.accessPage(1);
+        LRUCache<String, String> o = new LRUCache(2);
+        o.accessPage("1", "one");
         o.show();
-        o.accessPage(2);
+        o.accessPage("2", "two");
         o.show();
-        o.accessPage(4);
+        Object[] remove = o.remove("1");
+        System.out.println("*******");
+        System.out.println(remove[0] + ", " + remove[1]);
+        System.out.println("*******");
         o.show();
-        o.accessPage(3);
+        o.accessPage("3", "three");
+        o.show();
+        o.accessPage("4", "four");
         o.show();
     }
 
-    void accessPage(int page) {
+    void accessPage(K page, V value) {
         if (map.get(page) != null) {
             Node node = map.get(page);
             moveToHead(node);
         } else {
-            Node node = addToList(page);
+            Node node = addToList(page, value);
             map.put(page, node);
         }
     }
 
-    private Node addToList(int page) {
+    private Node addToList(K page, V value) {
         if (queue.head == null) {
-            queue.head = new Node(page);
+            queue.head = new Node(page, value);
             queue.tail = queue.head;
             queue.size = 1;
             return queue.head;
@@ -51,7 +56,7 @@ public class LRUCache {
             map.remove(temp.data);
         }
 
-        Node newHead = new Node(page);
+        Node newHead = new Node(page, value);
         newHead.next = queue.head;
         queue.head.prev = newHead;
         queue.head = newHead;
@@ -79,21 +84,50 @@ public class LRUCache {
 
     }
 
+    Object[] remove(K key){
+        if (map.get(key) == null){
+            return null;
+        }else {
+            Node node = map.get(key);
+
+            if (queue.head == node){
+                queue.head = queue.head.next;
+                queue.head.prev = null;
+            }else if (queue.tail == node){
+                queue.tail = queue.tail.prev;
+                queue.tail.next = null;
+            }else {
+                Node next = node.next;
+                Node prev = node.prev;
+
+                prev.next = next;
+                if (next!=null){
+                    next.prev = prev;
+                }
+            }
+            queue.size--;
+            map.remove(node);
+            return new Object[]{node.data, node.value};
+        }
+    }
+
     void show() {
         Node head = queue.head;
         while (head != null) {
-            System.out.print(head.data + " ");
+            System.out.print(head.data + "->" + head.value + ", ");
             head = head.next;
         }
         System.out.println("\n========");
     }
 
-    class Node {
-        int data;
+    class Node<K, V> {
+        K data;
+        V value;
         Node next, prev;
 
-        public Node(int data) {
+        public Node(K data, V value) {
             this.data = data;
+            this.value = value;
         }
     }
 
